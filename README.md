@@ -53,11 +53,11 @@ net.add_layer("tp_layer",
     F=MultiXGBModel(input_size=2, output_size=5, learning_rate=0.1, max_depth=5, num_boost_round=5),
     G=None)
 net.add_layer("tp_layer",
-        F=MultiXGBModel(input_size=5, output_size=3, learning_rate=0.1, max_depth=5, num_boost_round=5),
-        G=MultiXGBModel(input_size=3, output_size=5, learning_rate=0.1, max_depth=5, num_boost_round=5))
+    F=MultiXGBModel(input_size=5, output_size=3, learning_rate=0.1, max_depth=5, num_boost_round=5),
+    G=MultiXGBModel(input_size=3, output_size=5, learning_rate=0.1, max_depth=5, num_boost_round=5))
 net.add_layer("tp_layer",
-        F=MultiXGBModel(input_size=3, output_size=2, learning_rate=0.1, max_depth=5, num_boost_round=5),
-        G=MultiXGBModel(input_size=2, output_size=3, learning_rate=0.1, max_depth=5, num_boost_round=5))
+    F=MultiXGBModel(input_size=3, output_size=2, learning_rate=0.1, max_depth=5, num_boost_round=5),
+    G=MultiXGBModel(input_size=2, output_size=3, learning_rate=0.1, max_depth=5, num_boost_round=5))
 
 # init the forward mapping
 net.init(x_train, n_rounds=5)
@@ -78,7 +78,7 @@ hiddens = net.get_hiddens(x_test)
 
 # Expriments
 
-## circle datasets
+## circle dataset
 By running the following scripts
 - It will train a multi-layered GBDTs with structure (input - 5 - 3 - output) on the sythetic circle dataset
 - The visualization of the input (which is 2D) will be saved in outputs/circle/input.jpg (as show below)
@@ -91,7 +91,7 @@ Input                          |  Transformed
 :-----------------------------:|:------------------------------:
 ![](figures/circle/input.jpg) |  ![](figures/circle/pred2.jpg)
 
-## scurve datasets
+## scurve dataset
 By running the following scripts
 - It will train an autoencoder using multi-layered GBDTs with structure (input - 5 - output) on the sythetic scurve dataset
 - The visualization of the input (which is 3D) will be saved in outputs/circle/input.jpg (as show below)
