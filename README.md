@@ -14,7 +14,7 @@ The implementation is flexible enough for modifying the model or fit your own da
 
 ATTN: This package was developed and maintained by Mr.Ji Feng(http://lamda.nju.edu.cn/fengj/) .For any problem concerning the codes, please feel free to contact Mr.Feng.（fengj@lamda.nju.edu.cn) or open some issues here.
 
-# Envrionments
+# Environments
 - The code is developed under Python 3.5, so create a Python 3.5 environment using anaconda at first
 ```
 conda create -n mgbdt python=3.5 anaconda
