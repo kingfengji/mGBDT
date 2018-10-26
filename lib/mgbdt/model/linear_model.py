@@ -4,16 +4,33 @@ import torch.optim as optim
 from ..utils.torch_utils import use_gpu, numpy_to_torch, torch_to_numpy, get_torch_loss
 
 
+def _create_loss_fn(name, loss_params):
+    if loss_params is None:
+        loss_params = {}
+    else:
+        loss_params = loss_params.copy()
+    if "size_average" in loss_params:
+        loss_params.pop("size_average")
+    return get_torch_loss(name, size_average=False, **loss_params)
+
+
 class LinearModel:
-    def __init__(self, input_size, output_size, bias=True, learning_rate=0.1, weight_loss_fn=None, bp_loss_fn=None, optimizer="SGD", activation=None):
+    def __init__(self,
+            input_size,
+            output_size,
+            bias=True,
+            learning_rate=0.1,
+            loss=None,
+            loss_params=None,
+            optimizer="SGD",
+            activation=None):
         self.input_size = input_size
         self.output_size = output_size
         self.bias = bias
-        if weight_loss_fn is None:
-            self.weight_loss_fn = get_torch_loss("MSELoss", size_average=True)
+        if loss is None:
+            self.loss_fn = _create_loss_fn("MSELoss", loss_params)
         else:
-            self.weight_loss_fn = weight_loss_fn
-        self.bp_loss_fn = bp_loss_fn
+            self.loss_fn = _create_loss_fn(loss, loss_params)
         self.learning_rate = learning_rate
 
         self.F = torch.nn.Linear(input_size, output_size, bias=bias)
@@ -33,8 +50,8 @@ class LinearModel:
             self.F.cuda()
 
     def __repr__(self):
-        return "LinearModel(input_size={}, output_size={}, learning_rate={:.3f}, weight_loss_fn={}, bp_loss_fn={}, activation={}, optimizer={})".format(
-                self.input_size, self.output_size, self.learning_rate, self.weight_loss_fn, self.bp_loss_fn, self.activation, self.optimizer)
+        return "LinearModel(input_size={}, output_size={}, learning_rate={:.3f}, loss_fn={}, activation={}, optimizer={})".format(
+                self.input_size, self.output_size, self.learning_rate, self.loss_fn, self.activation, self.optimizer)
 
     def __call__(self, *args, **kwargs):
         return self.predict(*args, **kwargs)
@@ -56,7 +73,7 @@ class LinearModel:
         input = numpy_to_torch(input)
         target = numpy_to_torch(target)
         pred = self._predict(input)
-        loss = self.weight_loss_fn(pred, target)
+        loss = self.loss_fn(pred, target) / len(pred)
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
@@ -65,7 +82,7 @@ class LinearModel:
         input = numpy_to_torch(input, requires_grad=True)
         target = numpy_to_torch(target)
         pred = self._predict(input)
-        loss = self.bp_loss_fn(pred, target)
+        loss = self.loss_fn(pred, target)
         self.optimizer.zero_grad()
         loss.backward()
         return torch_to_numpy(input.grad)
@@ -73,7 +90,7 @@ class LinearModel:
     def calc_loss(self, pred, target):
         pred = numpy_to_torch(pred)
         target = numpy_to_torch(target)
-        loss = self.weight_loss_fn(pred, target)
+        loss = self.loss_fn(pred, target) / len(pred)
         return torch_to_numpy(loss)[0]
 
 

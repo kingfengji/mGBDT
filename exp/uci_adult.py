@@ -5,7 +5,6 @@ from mgbdt import MGBDT
 from mgbdt import MultiXGBModel, LinearModel
 from mgbdt.datasets import uci_adult
 from mgbdt.utils.exp_utils import set_seed
-from mgbdt.utils.torch_utils import get_torch_loss
 from mgbdt.utils.log_utils import logger
 
 
@@ -24,9 +23,7 @@ if __name__ == "__main__":
             F=MultiXGBModel(input_size=128, output_size=128, learning_rate=0.3, max_depth=5, num_boost_round=5),
             G=MultiXGBModel(input_size=128, output_size=128, learning_rate=0.3, max_depth=5, num_boost_round=5))
     net.add_layer("bp_layer",
-            F=LinearModel(input_size=128, output_size=2, learning_rate=0.03,
-                weight_loss_fn=get_torch_loss("CrossEntropyLoss", size_average=True),
-                bp_loss_fn=get_torch_loss("CrossEntropyLoss", size_average=False)))
+            F=LinearModel(input_size=128, output_size=2, learning_rate=0.03, loss="CrossEntropyLoss"))
     logger.info("[net architecture]")
     logger.info(net)
     net.init(x_train, n_rounds=5)
