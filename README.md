@@ -118,7 +118,7 @@ At first, you need to download the dataset by running the following command:
 cd dataset/uci_adult
 sh get_data.sh
 ```
-Then, y running the following scripts
+Then, by running the following scripts
 - It will train a multi-layered GBDTs with structure (input - 128 - 128 - output)
 - the accuracy will be logged for each epochs
 ```
