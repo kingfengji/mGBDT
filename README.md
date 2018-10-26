@@ -105,7 +105,7 @@ Input                             |  Reconstructed
 ![](figures/scurve/input.jpg)    |  ![](figures/scurve/pred2.jpg)
 
 - The visualization of the encoding will also be saved, since the 5D encodings are impossible to visualize directly, here we visualize every pairs of the 5 dimentions in 2D space.
-- The visualization of the $i'th and $j'th dimension will be saved in outputs/scurve/pred2.$i_$j.jpg (as show below)
+- The visualization of the $i'th and $j'th dimension will be saved in outputs/scurve/pred1.$i_$j.jpg (as show below)
 
 Dimension 1 and 2                 |  Dimension 1 and 5
 :--------------------------------:|:----------------------------------:
