@@ -113,12 +113,12 @@ Dimension 1 and 2                 |  Dimension 1 and 5
 
 
 ## [UCI Adult](https://archive.ics.uci.edu/ml/datasets/adult)
-* At first, you need to download the dataset by running the following command:
+At first, you need to download the dataset by running the following command:
 ```Shell
 cd dataset/uci_adult
 sh get_data.sh
 ```
-By running the following scripts
+Then, y running the following scripts
 - It will train a multi-layered GBDTs with structure (input - 128 - 128 - output)
 - the accuracy will be logged for each epochs
 ```
@@ -126,6 +126,7 @@ python exp/uci_adult.py
 ```
 
 ## [UCI Yeast](https://archive.ics.uci.edu/ml/datasets/Yeast)
+By running the following scripts
 - It will train a multi-layered GBDTs with structure (input - 16 - 16 - output)
 - 10-fold cross-validation is used
 - the accuracy will be logged for each epochs and each folds
