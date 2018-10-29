@@ -33,7 +33,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 
 # For using the mgbdt library, you have to include the library directory into your python path.
-# If you are in this repository's root directory, you can do it by using the following codes
+# If you are in this repository's root directory, you can do it by using the following lines
 import sys
 sys.path.insert(0, "lib")
 
@@ -133,3 +133,4 @@ By running the following scripts
 ```
 python exp/uci_yeast.py
 ```
+Happy hacking.
